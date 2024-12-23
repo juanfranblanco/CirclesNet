@@ -1,0 +1,22 @@
+[
+    {
+        "paths": [
+            "contract-artifacts/v2/DemurrageCircles.json",
+            "contract-artifacts/v2/Hub.json",
+            "contract-artifacts/v2/INameRegistry.json",
+            "contract-artifacts/v2/InflationaryCircles.json",
+            "contract-artifacts/v2/Migration.json",
+            "contract-artifacts/v2/NameRegistry.json"
+        ],
+        "generatorConfigs": [
+            {
+                "baseNamespace": "Circles.Contracts",
+                "basePath": "../Circles.Contracts",
+                "codeGenLang": 0,
+                "generatorType": "ContractDefinition"
+            }
+        ]
+    }
+]
+
+
