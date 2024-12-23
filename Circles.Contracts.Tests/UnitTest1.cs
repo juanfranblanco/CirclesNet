@@ -11,14 +11,20 @@ namespace Circles.Contracts.Tests
         */
 
         string v2HubAddress = "0xFFfbD3E62203B888bb8E09c1fcAcE58242674964";
+        string humanAddress1 = "0xed1067bc2a09dd6a146eccd3577f27eb5be93646";
 
         [Fact]
-        public void ShouldDoSomething()
+        public async Task ShouldCalculateIssuance()
         {
-            var web3 = new Web3("https://rpc.gnosis.gateway.fm");
+            //var web3 = new Web3("https://rpc.gnosis.gateway.fm");
+            var web3 = new Web3("https://rpc.aboutcircles.com/");
             var hubService = new HubService(web3, v2HubAddress);
-            hubService.RegisterHumanRequestAsync
+            var issuance = await hubService.CalculateIssuanceQueryAsync("0xed1067bc2a09dd6a146eccd3577f27eb5be93646");
+            
 
         }
     }
+
+
+
 }

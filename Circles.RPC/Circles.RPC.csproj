@@ -6,8 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
 	<ItemGroup>
-		<ProjectReference Include="..\..\Nethereum\src\Nethereum.Web3\Nethereum.Web3.csproj" />
+	  <ProjectReference Include="..\..\Nethereum\src\Nethereum.Web3\Nethereum.Web3.csproj" />
 	</ItemGroup>
+
 
 </Project>

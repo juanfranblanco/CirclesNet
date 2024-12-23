@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Circles.Contracts\Circles.Contracts.csproj" />
+    <ProjectReference Include="..\Circles.RPC\Circles.RPC.csproj" />
   </ItemGroup>
 
   <ItemGroup>

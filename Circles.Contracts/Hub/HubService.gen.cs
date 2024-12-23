@@ -418,7 +418,7 @@ namespace Circles.Contracts.Hub
              return ContractHandler.SendRequestAndWaitForReceiptAsync(operateFlowMatrixFunction, cancellationToken);
         }
 
-        public Task<string> OperateFlowMatrixRequestAsync(List<string> flowVertices, List<FlowEdge> flow, List<Stream> streams, byte[] packedCoordinates)
+        public Task<string> OperateFlowMatrixRequestAsync(List<string> flowVertices, List<FlowEdge> flow, List<ContractDefinition.Stream> streams, byte[] packedCoordinates)
         {
             var operateFlowMatrixFunction = new OperateFlowMatrixFunction();
                 operateFlowMatrixFunction.FlowVertices = flowVertices;
@@ -429,7 +429,7 @@ namespace Circles.Contracts.Hub
              return ContractHandler.SendRequestAsync(operateFlowMatrixFunction);
         }
 
-        public Task<TransactionReceipt> OperateFlowMatrixRequestAndWaitForReceiptAsync(List<string> flowVertices, List<FlowEdge> flow, List<Stream> streams, byte[] packedCoordinates, CancellationTokenSource cancellationToken = null)
+        public Task<TransactionReceipt> OperateFlowMatrixRequestAndWaitForReceiptAsync(List<string> flowVertices, List<FlowEdge> flow, List<ContractDefinition.Stream> streams, byte[] packedCoordinates, CancellationTokenSource cancellationToken = null)
         {
             var operateFlowMatrixFunction = new OperateFlowMatrixFunction();
                 operateFlowMatrixFunction.FlowVertices = flowVertices;
