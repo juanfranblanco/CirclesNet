@@ -1,5 +1,4 @@
-﻿using Circles.RPC.Requests;
-using Circles.RPC.Requests.DTO;
+﻿using Circles.RPC.Requests.DTO;
 using Circles.RPC.Requests.DTOs;
 using Nethereum.JsonRpc.Client;
 
@@ -7,103 +6,94 @@ namespace Circles.RPC.Requests
 {
     public class TransactionHistoryQuery
     {
-        private readonly CirclesQuery<CirclesQueryPage> _circlesQuery;
+        private readonly CirclesQuery<TransactionHistoryRow> _circlesQuery;
 
         public TransactionHistoryQuery(IClient client)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
-            _circlesQuery = new CirclesQuery<CirclesQueryPage>(client);
+            _circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
         }
 
         /// <summary>
-        /// Sends a transaction history query and maps the response.
+        /// Fetches the first page of transaction history for a given account.
         /// </summary>
-        /// <param name="queryDefinition">The query definition object.</param>
+        /// <param name="accountAddress">The account address to fetch transaction history for.</param>
+        /// <param name="pageSize">The maximum number of rows per page.</param>
         /// <param name="id">Optional request identifier.</param>
-        /// <returns>A paginated result containing transaction history rows.</returns>
-        public async Task<Page<TransactionHistoryRow>> SendRequestAsync(QueryDefinition queryDefinition, object id = null)
+        /// <returns>A CirclesQueryPage containing transaction history rows.</returns>
+        public async Task<CirclesQueryPage<TransactionHistoryRow>> FetchFirstPageAsync(string accountAddress, int pageSize = 100, object id = null)
         {
-            if (queryDefinition == null)
-                throw new ArgumentNullException(nameof(queryDefinition));
+            if (string.IsNullOrWhiteSpace(accountAddress))
+                throw new ArgumentNullException(nameof(accountAddress));
 
-            // Fetch raw data using CirclesQuery
-            var rawResponse = await _circlesQuery.SendRequestAsync(queryDefinition, id);
+            // Build the QueryDefinition
+            var queryDefinition = BuildQueryDefinition(accountAddress, pageSize);
 
-            // Map rows to TransactionHistoryRow
-            var rows = rawResponse.Rows.Select(row => MapRowToTransactionHistory(rawResponse.Columns, row)).ToList();
-           
-            //TODO add cursor filtering and response to page results
-            return new Page<TransactionHistoryRow>
-            {
-                Rows = rows,
-                PageSize = queryDefinition.Limit,
-                //TotalRows = rows.Count // Optional: replace with actual total rows if available from the API
-            };
+            // Fetch the first page
+            return await _circlesQuery.SendRequestAsync(queryDefinition, id);
         }
 
         /// <summary>
-        /// Maps a single row to a TransactionHistoryRow using the columns.
+        /// Moves to the next page of the transaction history.
         /// </summary>
-        /// <param name="columns">The column names from the response.</param>
-        /// <param name="row">The row data.</param>
-        /// <returns>A mapped TransactionHistoryRow object.</returns>
-        private TransactionHistoryRow MapRowToTransactionHistory(List<string> columns, string[] row)
+        /// <param name="currentPage">The current page of the query.</param>
+        /// <param name="id">Optional request identifier.</param>
+        /// <returns>The next CirclesQueryPage containing transaction history rows.</returns>
+        public async Task<CirclesQueryPage<TransactionHistoryRow>> MoveNextPageAsync(CirclesQueryPage<TransactionHistoryRow> currentPage, object id = null)
         {
-            var transaction = new TransactionHistoryRow();
+            if (currentPage == null)
+                throw new ArgumentNullException(nameof(currentPage));
 
-            for (int i = 0; i < columns.Count; i++)
+            return await _circlesQuery.MoveNextRequestAsync(currentPage, id);
+        }
+
+        /// <summary>
+        /// Builds the QueryDefinition for the transaction history query.
+        /// </summary>
+        /// <param name="accountAddress">The account address to fetch transaction history for.</param>
+        /// <param name="pageSize">The maximum number of rows per page.</param>
+        /// <returns>A QueryDefinition object.</returns>
+        private QueryDefinition BuildQueryDefinition(string accountAddress, int pageSize)
+        {
+            return new QueryDefinition
             {
-                var column = columns[i];
-                var value = row[i];
-
-                switch (column)
+                Namespace = "V_Crc",
+                Table = "Transfers",
+                Columns = new List<string>
                 {
-                    case "blockNumber":
-                        transaction.BlockNumber = Convert.ToInt64(value);
-                        break;
-                    case "timestamp":
-                        transaction.Timestamp = Convert.ToInt64(value);
-                        break;
-                    case "transactionIndex":
-                        transaction.TransactionIndex = Convert.ToInt32(value);
-                        break;
-                    case "logIndex":
-                        transaction.LogIndex = Convert.ToInt32(value);
-                        break;
-                    case "batchIndex":
-                        transaction.BatchIndex = Convert.ToInt32(value);
-                        break;
-                    case "transactionHash":
-                        transaction.TransactionHash = value?.ToString();
-                        break;
-                    case "version":
-                        transaction.Version = Convert.ToInt32(value);
-                        break;
-                    case "operator":
-                        transaction.Operator = value?.ToString();
-                        break;
-                    case "from":
-                        transaction.From = value?.ToString();
-                        break;
-                    case "to":
-                        transaction.To = value?.ToString();
-                        break;
-                    case "id":
-                        transaction.Id = value?.ToString();
-                        break;
-                    case "value":
-                        transaction.Value = value?.ToString();
-                        break;
-                    case "type":
-                        transaction.Type = value?.ToString();
-                        break;
-                    case "tokenType":
-                        transaction.TokenType = value?.ToString();
-                        break;
-                }
-            }
-
-            return transaction;
+                    "blockNumber", "timestamp", "transactionIndex", "logIndex", "batchIndex",
+                    "transactionHash", "version", "operator", "from", "to", "id", "value", "type", "tokenType"
+                },
+                Filter = new List<Filter>
+                {
+                    new Conjunction
+                    {
+                        ConjunctionType = "Or",
+                        Predicates = new List<Filter>
+                        {
+                            new FilterPredicate
+                            {
+                                FilterType = "Equals",
+                                Column = "from",
+                                Value = accountAddress.ToLower()
+                            },
+                            new FilterPredicate
+                            {
+                                FilterType = "Equals",
+                                Column = "to",
+                                Value = accountAddress.ToLower()
+                            }
+                        }
+                    }
+                },
+                Order = new List<Order>
+                {
+                    new Order { Column = "blockNumber", SortOrder = "ASC" },
+                    new Order { Column = "transactionIndex", SortOrder = "ASC" },
+                    new Order { Column = "logIndex", SortOrder = "ASC" }
+                },
+                Limit = pageSize
+            };
         }
     }
 }

@@ -44,55 +44,23 @@ namespace Circles.Contracts.Tests
             var client = new RpcClient(new Uri("https://chiado-rpc.aboutcircles.com"));
             var circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
 
-            var queryDefinition = new QueryDefinition
-            {
-                Namespace = "V_Crc",
-                Table = "Transfers",
-              
-                Limit = 10,
-                Columns = new List<string>
-                {
-                    "blockNumber", "timestamp", "transactionIndex", "logIndex",
-                    "batchIndex", "transactionHash", "version", "operator",
-                    "from", "to", "id", "value", "type", "tokenType"
-                },
-                Filter = new List<Filter>()
-                {
-                     new Conjunction
-                    {
-                            ConjunctionType = "Or",
-                            Predicates = new List<Filter>
-                            {
-                                new FilterPredicate
-                                {
-                                    FilterType = "Equals",
-                                    Column = "from",
-                                    Value = avatar.ToLower()
-                                },
-                                new FilterPredicate
-                                {
-                                    FilterType = "Equals",
-                                    Column = "to",
-                                    Value = avatar.ToLower()
-                                }
-                            }
-                     }
-                },
-                Order = new List<Order>
-                {
-                    new Order { Column = "blockNumber", SortOrder = "DESC" },
-                    new Order { Column = "transactionIndex", SortOrder = "DESC" },
-                    new Order { Column = "logIndex", SortOrder = "DESC" }
-                },
-            };
+            
 
             var transactionHistoryQuery = new TransactionHistoryQuery(client);
-            var allTransactions = await transactionHistoryQuery.SendRequestAsync(queryDefinition);
+            var transactions = await transactionHistoryQuery.FetchFirstPageAsync(avatar, 10);
 
-            foreach (var transaction in allTransactions.Rows)
+            foreach (var transaction in transactions.Response)
             {
                 Debug.WriteLine($"Transaction Hash: {transaction.TransactionHash}, Value: {transaction.Value}");
             }
+
+            transactions = await transactionHistoryQuery.MoveNextPageAsync(transactions);
+
+            foreach (var transaction in transactions.Response)
+            {
+                Debug.WriteLine($"Transaction Hash: {transaction.TransactionHash}, Value: {transaction.Value}");
+            }
+
         }
     }
 }

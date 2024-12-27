@@ -3,6 +3,7 @@ using Org.BouncyCastle.Asn1.X509;
 
 namespace Circles.RPC.Requests.DTOs
 {
+
     /// <summary>
     /// Represents the query definition for a `circles_query` request.
     /// </summary>

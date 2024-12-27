@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.JsonRpc.Client", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainProcessing", "..\Nethereum\src\Nethereum.BlockchainProcessing\Nethereum.BlockchainProcessing.csproj", "{FE360A7E-16F0-4F02-ABC8-26695C515899}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.ABI", "..\Nethereum\src\Nethereum.ABI\Nethereum.ABI.csproj", "{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{FE360A7E-16F0-4F02-ABC8-26695C515899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE360A7E-16F0-4F02-ABC8-26695C515899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE360A7E-16F0-4F02-ABC8-26695C515899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +166,7 @@ Global
 		{5C0A7E7A-BB93-4901-9D50-4AD67A6373F9} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 		{EF0991AC-9EE7-48A0-B1C9-85E8D40D926B} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 		{FE360A7E-16F0-4F02-ABC8-26695C515899} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
+		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22C54CBC-5F4F-47CE-B0A7-7E2B2F9B0E13}
