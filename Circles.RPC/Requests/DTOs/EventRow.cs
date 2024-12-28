@@ -7,6 +7,8 @@
         public int LogIndex { get; set; }
         public int BatchIndex { get; set; }
         public string TransactionHash { get; set; }
+        public long Timestamp { get; set; }
+        public int Version { get; set; }
     }
 
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.GnosisSafe\Nethereum.GnosisSafe.csproj" />
     <ProjectReference Include="..\Circles.Contracts\Circles.Contracts.csproj" />
     <ProjectReference Include="..\Circles.RPC\Circles.RPC.csproj" />
   </ItemGroup>

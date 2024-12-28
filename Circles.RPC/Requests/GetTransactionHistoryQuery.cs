@@ -4,11 +4,12 @@ using Nethereum.JsonRpc.Client;
 
 namespace Circles.RPC.Requests
 {
-    public class TransactionHistoryQuery
+    
+    public class GetTransactionHistoryQuery
     {
         private readonly CirclesQuery<TransactionHistoryRow> _circlesQuery;
 
-        public TransactionHistoryQuery(IClient client)
+        public GetTransactionHistoryQuery(IClient client)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             _circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
@@ -21,7 +22,7 @@ namespace Circles.RPC.Requests
         /// <param name="pageSize">The maximum number of rows per page.</param>
         /// <param name="id">Optional request identifier.</param>
         /// <returns>A CirclesQueryPage containing transaction history rows.</returns>
-        public async Task<CirclesQueryPage<TransactionHistoryRow>> FetchFirstPageAsync(string accountAddress, int pageSize = 100, object id = null)
+        public async Task<CirclesQueryPage<TransactionHistoryRow>> SendRequestAsync(string accountAddress, int pageSize = 100, object id = null)
         {
             if (string.IsNullOrWhiteSpace(accountAddress))
                 throw new ArgumentNullException(nameof(accountAddress));

@@ -40,18 +40,20 @@ namespace Circles.Contracts.Tests
         [Fact]
         public async Task ShouldGetTransactionHistoryAsync()
         {
-            var avatar = "0xc5d6c75087780e0c18820883cf5a580bb3a4d834";
-            var client = new RpcClient(new Uri("https://chiado-rpc.aboutcircles.com"));
+            //var avatar = "0xc5d6c75087780e0c18820883cf5a580bb3a4d834";
+            var avatar = "0xed1067bc2a09dd6a146eccd3577f27eb5be93646";
+            //var client = new RpcClient(new Uri("https://chiado-rpc.aboutcircles.com"));
+            var client = new RpcClient(new Uri("https://rpc.aboutcircles.com/"));
             var circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
 
             
 
-            var transactionHistoryQuery = new TransactionHistoryQuery(client);
-            var transactions = await transactionHistoryQuery.FetchFirstPageAsync(avatar, 10);
+            var transactionHistoryQuery = new GetTransactionHistoryQuery(client);
+            var transactions = await transactionHistoryQuery.SendRequestAsync(avatar, 100);
 
             foreach (var transaction in transactions.Response)
             {
-                Debug.WriteLine($"Transaction Hash: {transaction.TransactionHash}, Value: {transaction.Value}");
+                Debug.WriteLine($"Transaction Hash: {transaction.TransactionHash}, Block {transaction.BlockNumber}, Value: {transaction.Value}, {transaction.Operator}, {transaction.To}");
             }
 
             transactions = await transactionHistoryQuery.MoveNextPageAsync(transactions);
@@ -59,6 +61,63 @@ namespace Circles.Contracts.Tests
             foreach (var transaction in transactions.Response)
             {
                 Debug.WriteLine($"Transaction Hash: {transaction.TransactionHash}, Value: {transaction.Value}");
+            }
+
+        }
+
+        [Fact]
+        public async Task ShouldGetTrustRelationsAsync()
+        {
+            //var avatar = "0xc5d6c75087780e0c18820883cf5a580bb3a4d834";
+            var avatar = "0xed1067bc2a09dd6a146eccd3577f27eb5be93646";
+            //var client = new RpcClient(new Uri("https://chiado-rpc.aboutcircles.com"));
+            var client = new RpcClient(new Uri("https://rpc.aboutcircles.com/"));
+            var circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
+
+
+
+            var trustRelationsQuery = new GetTrustRelationsQuery(client);
+            var trustRelations = await trustRelationsQuery.SendRequestAsync(avatar, 20);
+
+            foreach (var trustRelation in trustRelations.Response)
+            {
+                Debug.WriteLine($"Trustee: {trustRelation.Trustee}, Truster: {trustRelation.Truster}, {trustRelation.Version}");
+            }
+
+            trustRelations = await trustRelationsQuery.MoveNextPageAsync(trustRelations);
+
+            foreach (var trustRelation in trustRelations.Response)
+            {
+                Debug.WriteLine($"Trustee: {trustRelation.Trustee}, Truster: {trustRelation.Truster}, {trustRelation.Version}");
+            }
+
+        }
+
+
+        [Fact]
+        public async Task ShouldGetAvatarInfoAsync()
+        {
+            //var avatar = "0xc5d6c75087780e0c18820883cf5a580bb3a4d834";
+            var avatar = "0xed1067bc2a09dd6a146eccd3577f27eb5be93646";
+            //var client = new RpcClient(new Uri("https://chiado-rpc.aboutcircles.com"));
+            var client = new RpcClient(new Uri("https://rpc.aboutcircles.com/"));
+            var circlesQuery = new CirclesQuery<TransactionHistoryRow>(client);
+
+
+
+            var query = new GetAvatarInfoQuery(client);
+            var response = await query.SendRequestAsync(avatar, 20);
+
+            foreach (var avatarInfo in response.Response)
+            {
+                Debug.WriteLine($" Name: {avatarInfo.Name}, Avatar: {avatarInfo.Avatar}, Token: {avatarInfo.TokenId}, Version:{avatarInfo.Version}");
+            }
+
+            response = await query.MoveNextPageAsync(response);
+
+            foreach (var avatarInfo in response.Response)
+            {
+                Debug.WriteLine($" Name: {avatarInfo.Name}, Avatar: {avatarInfo.Avatar}, Token: {avatarInfo.TokenId}, Version:{avatarInfo.Version}");
             }
 
         }

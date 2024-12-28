@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainProcess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.ABI", "..\Nethereum\src\Nethereum.ABI\Nethereum.ABI.csproj", "{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.GnosisSafe", "..\Nethereum\src\Nethereum.GnosisSafe\Nethereum.GnosisSafe.csproj", "{193F5501-D429-D91F-9CA9-4C2494619CC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.Signer", "..\Nethereum\src\Nethereum.Signer\Nethereum.Signer.csproj", "{4F21DFC1-C8D2-CBD6-518D-428312E893A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +147,14 @@ Global
 		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193F5501-D429-D91F-9CA9-4C2494619CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193F5501-D429-D91F-9CA9-4C2494619CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193F5501-D429-D91F-9CA9-4C2494619CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193F5501-D429-D91F-9CA9-4C2494619CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F21DFC1-C8D2-CBD6-518D-428312E893A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F21DFC1-C8D2-CBD6-518D-428312E893A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F21DFC1-C8D2-CBD6-518D-428312E893A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F21DFC1-C8D2-CBD6-518D-428312E893A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +179,8 @@ Global
 		{EF0991AC-9EE7-48A0-B1C9-85E8D40D926B} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 		{FE360A7E-16F0-4F02-ABC8-26695C515899} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 		{FCCA83C9-63A1-E2A1-2AB0-39E70F6FA90A} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
+		{193F5501-D429-D91F-9CA9-4C2494619CC8} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
+		{4F21DFC1-C8D2-CBD6-518D-428312E893A8} = {B400C5FC-7837-49FC-9DDD-09AA255ABBE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22C54CBC-5F4F-47CE-B0A7-7E2B2F9B0E13}
