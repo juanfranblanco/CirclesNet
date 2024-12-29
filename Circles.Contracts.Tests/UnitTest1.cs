@@ -1,9 +1,11 @@
 ﻿using Circles.Contracts.Hub;
 using Circles.Contracts.Hub.ContractDefinition;
+using Circles.RPC.Requests;
 using Nethereum.GnosisSafe;
 using Nethereum.GnosisSafe.ContractDefinition;
 using Nethereum.Model;
 using Nethereum.Web3;
+using System.Diagnostics;
 using System.Net.Mail;
 
 namespace Circles.Contracts.Tests
@@ -33,14 +35,16 @@ namespace Circles.Contracts.Tests
         {
             var privateKey = "";
             var web3 = new Web3(new Nethereum.Web3.Accounts.Account(privateKey), "https://rpc.aboutcircles.com/");
-            var safe = new GnosisSafeService(web3, humanAddress1);
-            var personalMintFunction = new PersonalMintFunction();
+            var hubService = new HubService(web3, v2HubAddress);
+            hubService.ChangeContractHandlerToSafeExecTransaction(humanAddress1, privateKey);
 
-            var execTransactionFunction = await safe.BuildTransactionAsync(
-                new EncodeTransactionDataFunction() { To = v2HubAddress }, personalMintFunction, (int)chainId, false,
-                privateKey);
+            var getTotalBalanceV2 = new GetTotalBalanceV2(web3.Client);
+            string balanceV2 = await getTotalBalanceV2.SendRequestAsync(humanAddress1);
+            Debug.WriteLine($"Total Balance (V2): {balanceV2}");
+            await hubService.PersonalMintRequestAndWaitForReceiptAsync();
 
-            await safe.ExecTransactionRequestAndWaitForReceiptAsync(execTransactionFunction);
+            balanceV2 = await getTotalBalanceV2.SendRequestAsync(humanAddress1);
+            Debug.WriteLine($"Total Balance (V2): {balanceV2}");
         }
     }
 
