@@ -11,22 +11,27 @@ WIP (Just for info.. continuous changes, working on core components)
    * GetTrustRelationsQuery (Query)
    * GetAvatarInfoQuery (Query)
    * GetTotalBalance V1 and V2
+   
    **Todo**
    * Common RPC object like Nethereum Web3
    * Generic business logic not implmented in the RPC, like Calculate balances, mappings etc
    * Other queries / rpc methods
    * Websockets examples / simple interface
 ### Circles.Contracts
+  
   **Done**
   * Generic contract interfaces
   * Simple testing using Gnosis safe to interact with the hub and get data directly from hub
+  
   **TODO**
   * Simple entry point as per RPC
   * Business Logic / simplification for users interaction
 ### Example
+  
   **Todo**
   Web / mobile wallet / Gaming / Unity?
 ### Signing adapters / AA
+  
   **Todo**
   Awaiting Nethereum implementation
 
