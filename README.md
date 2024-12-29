@@ -29,9 +29,12 @@ WIP (Just for info.. continuous changes, working on core components)
 ### Example
   
   **Todo**
+  
   Web / mobile wallet / Gaming / Unity?
+  
 ### Signing adapters / AA
   
   **Todo**
+  
   Awaiting Nethereum implementation
 
