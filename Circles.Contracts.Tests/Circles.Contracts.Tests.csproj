@@ -12,12 +12,13 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Nethereum.GnosisSafe" Version="4.28.0" />
     <PackageReference Include="xunit" Version="2.6.6" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Nethereum\src\Nethereum.GnosisSafe\Nethereum.GnosisSafe.csproj" />
+  
     <ProjectReference Include="..\Circles.Contracts\Circles.Contracts.csproj" />
     <ProjectReference Include="..\Circles.RPC\Circles.RPC.csproj" />
   </ItemGroup>
